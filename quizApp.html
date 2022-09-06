@@ -1,6 +1,10 @@
 <template>
     <lightning-card title="Quiz app in LWC">
         <div class="slds-var-m-around_medium">
+            <template if:true={isSubmitted}>
+                <div class={isScoredFull}>You have Scored {correctAnswers} out of {myQuestions.length}</div>
+            </template>
+            
             <form>
             <template for:each={myQuestions} for:item="quiz">
                 <div key={quiz.id} class="slds-var-m-bottom_medium">
@@ -22,7 +26,7 @@
                 </div>
                 
             </template>
-            <lightning-button variant="brand" type="submit" label="Submit" title="submit quiz" class="slds-var-m-around_small" onclick={submitHandler}></lightning-button>
+            <lightning-button variant="brand" type="submit" label="Submit" title="submit quiz" class="slds-var-m-around_small" disabled={allNotSelected} onclick={submitHandler}></lightning-button>
             <lightning-button variant="brand" type="reset" label="Reset" title="reset quiz" class="slds-var-m-around_small" onclick={resetHandler}></lightning-button>
             </form>
         </div>
