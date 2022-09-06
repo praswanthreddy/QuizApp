@@ -37,31 +37,33 @@ export default class QuizApp extends LightningElement {
     isSubmitted=false
     correctAnswers=0
 
+    //used for disabling the submit button
     get allNotSelected(){
         return !(Object.keys(this.selected).length===this.myQuestions.length)
     }
 
+    //for applying dynamic styling to our result
     get isScoredFull(){
         return `slds-text-heading_large ${this.myQuestions.length === this.correctAnswers ? 'slds-text-color_success':'slds-text-color_error'}`
     }
 
-    //change handler method
+    //change handler get's called on every click on the options
     changeHandler(event){
-        console.log("name",event.target.name)   
-        console.log("value",event.target.value)
+        //console.log("name",event.target.name)   
+        //console.log("value",event.target.value)
         const {name,value}= event.target //object destructuring
         this.selected={...this.selected,[name]:value}
     }
 
+    //form submit handler
     submitHandler(event){
         event.preventDefault()
         let correct=this.myQuestions.filter(item=>this.selected[item.id]===item.correctAnswer)
         this.correctAnswers= correct.length
         this.isSubmitted=true
-        console.log("this.correctAnswers",this.correctAnswers)
-
     }
 
+    //form reset handler
     resetHandler(){
         this.selected={}
         this.correctAnswers=0
